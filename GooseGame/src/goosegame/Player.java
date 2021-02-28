@@ -42,12 +42,7 @@ public class Player {
     }
        
     public void moveTo(Square square){
-        this.square = square;
-    //    System.out.println("new square " + board.getSquare(square));      
+        this.square = square;    
     }
-    
-    
-    
-    
     
 }

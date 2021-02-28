@@ -10,12 +10,13 @@ package goosegame;
  * @author Xristos
  */
 
+import java.lang.*; 
+
 public class Square {
     
     private int squareNum;
     private Board board;
     private Player player;
-    private int round;
     
     public Square(int squareNum, Board board){
         this.squareNum = squareNum;
@@ -25,14 +26,10 @@ public class Square {
     public int getSquareNum() {
         return squareNum;
     }
-
-    public void setSquareNum(int squareNum) {
-        this.squareNum = squareNum;
-    }     
-    
-    public void action(Player player, int round, int dice){  
+  
+    public void action(Player player, int dice, int squareNum){  
         this.player = player;
-        this.round = round;
+        this.squareNum = squareNum;
         
         Game g = new Game();
         
@@ -51,25 +48,16 @@ public class Square {
             
             System.out.println("Moving to square " + squareNum);
             
-            if(squareNum == 63){
-                player.setWinner();
-                player.isWinner();
-                System.out.println("PLAYER '" + player.getName() + "' IS THE WINNER!");
-                System.out.println("GAME OVER!");
-                return;
-            }
-            
             if(squareNum == 59 && dice == 8){
                 squareNum = 59 - dice;
             }
             
-            action(player,round,dice);
+            action(player, dice, squareNum);
             
             /*
-            otan peftei sto 59 kai einai na epanalabei to zari kai fernei ektos twn oriwn
-            megalytero apo 63 kai prepei na epistrepsei th diafora kai na ektelesei pali action 
-            pagideyetai sto 59 kai ksanarixnei kai den termatizei mexri 
-            na uparksei stackoverflow error
+            otan peftei sto 59 kai einai na epanalabei to zari kai fernei 8, pagideyetai sto 59 
+            kai ksanarixnei kai den termatizei mexri na uparksei stackoverflow error
+            gi auto anti na kanei +dice , kanei -dice
             */
         }
         else if(squareNum == 6){    //bridge
@@ -78,9 +66,11 @@ public class Square {
         }
         else if(squareNum == 19){    //inn
             System.out.println("Inn square, waiting for 2 rounds");
+            //action in game_play()
         }
         else if(squareNum == 31){    //well
             System.out.println("Well square");
+            //action in game_play()
         }
         else if(squareNum == 42){   //labyrinth
             System.out.println("Labyrinth square, moving back to square 30");
@@ -88,6 +78,7 @@ public class Square {
         }
         else if(squareNum == 52){    //prison
             System.out.println("Prison square");
+             //action in game_play()
         }
         else if(squareNum == 58){   //death
             System.out.println("Death square, moving back to square 1");
@@ -98,7 +89,7 @@ public class Square {
             player.isWinner();
             System.out.println("PLAYER '" + player.getName() + "' IS THE WINNER!");
             System.out.println("GAME OVER!");
-            return; //den xreiazetai
+            System.exit(0); 
         }
         else{
             System.out.println("Plain square, no special action...");   
@@ -106,24 +97,4 @@ public class Square {
     }
     
 }
-
-/*
-1-63 tetragwna 
-oi paiktes ksekinane apo to 0
-sto 63 nikh
-5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54, 59 'goose' kai o paikths 
-    epanalambanei th zaria poy erikse
-dice 6+3 o paikths phgainei sto 26 
-dice 5+4 o paikths phgainei sto 53
-an sto tetragwno brisketai allos paikths 8a metafer8ei sto tetragwno apo to opoio 
-    ksekinhse o neos paikths
-6 'bridge' kai metaferetai sto 12
-19 'inn' xanei 2 gurous
-31 'Well' meneis ekei mexri na r8ei kapoios allos kai na parei th 8esh soy
-42 'Labyrinth' epistrefeis pisw sto 30
-52 'Prison' meneis mexri na r8ei kapoios allos alla autos pou 8a r8ei apla se bgazei 
-    kai den pairnei kai th 8esh soy,sunexizei kanonika meta
-58 'Death' epistrefeis sto 1
-*/
-
 

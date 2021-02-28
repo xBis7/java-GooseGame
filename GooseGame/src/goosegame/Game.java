@@ -28,7 +28,7 @@ public class Game implements java.io.Serializable {
         players = new ArrayList();
         board = new Board();
         round = 0;
-        roundCount = 0;
+        roundCount = 1;
 //        roundStuck = 0;
     }
 
@@ -85,9 +85,10 @@ public class Game implements java.io.Serializable {
         
         Scanner input = new Scanner(System.in);
         String name = null;
-        String name1 = null;
-        Player pl = new Player(name, board, startSqNum);    //gia to prison
-        Player pl1 = new Player(name1, board, startSqNum);
+        //String name1 = null;
+        Player pl = new Player(name, board, startSqNum);    
+        //prison player object        
+        //Player pl1 = new Player(name1, board, startSqNum);  
         
         while(pl.isWinner() == false){  //do while
             
@@ -138,13 +139,14 @@ public class Game implements java.io.Serializable {
                 }
                 else if(oldSquareNumber == 19){   //inn
                     
-                    if(roundCount < 2){  
+                    if(roundCount < 3){  
                         newSquare = board.getSquare(oldSquareNumber);
-                        setRoundCount(++roundCount);
+                        System.out.println("Round " + roundCount + " of 2");
+                        setRoundCount(++roundCount);    
                     } 
                     else{
                         newSquare = board.getSquare(oldSquareNumber + dice);
-                        setRoundCount(0);
+                        setRoundCount(1);
                     }
 
                 }
@@ -194,15 +196,12 @@ public class Game implements java.io.Serializable {
                 
                 System.out.println("Player '" + name + "' has now moved to square " + newSquare.getSquareNum());
                 
-                newSquare.action(pl, round, dice);
-                
-                
+                newSquare.action(pl, dice, newSquare.getSquareNum());
 
             }
-        };
+        }
         
     }
-    
     
     
     public void save_game(int plr_turn) {   
@@ -299,7 +298,7 @@ public class Game implements java.io.Serializable {
         }
             
             // enas guros mesa sthn load_game gia na sunexistei to paixnidi apo ton teleutaio paikth
-            // kai sth sunexeia eksodos apo thn load kai sunexeia sto game_play
+            // kai sto telos ths load, sunexeia sto game_play
             Scanner input = new Scanner(System.in);
 
             System.out.println("\n\n --- round " + roundNum + " ---");
@@ -332,8 +331,7 @@ public class Game implements java.io.Serializable {
                 dice1 = Dice.dice_roll();
                 dice2 = Dice.dice_roll();
                 dice = dice1 + dice2;
-                //dice 6+3 o paikths phgainei sto 26 
-                //dice 5+4 o paikths phgainei sto 53
+                
                 
                 if(oldSquareNumber == 0){
                     if( (dice1 == 6 && dice2 == 3) || (dice1 == 3 && dice2 == 6) ){               
@@ -362,29 +360,23 @@ public class Game implements java.io.Serializable {
                     
                     newSquare = board.getSquare(oldSquareNumber);
 
-                //meneis ekei mexri na r8ei kapoios allos kai na parei th 8esh soy
                 }
                 else if(oldSquareNumber == 52){   //prison
                                                             
                     newSquare = board.getSquare(oldSquareNumber);
-                    
-                    //meneis mexri na r8ei kapoios allos alla autos pou 8a r8ei apla se bgazei 
-                    //kai den pairnei kai th 8esh soy,sunexizei kanonika meta
+
                 }
                 else{
                     newSquare = board.getSquare(oldSquareNumber + dice);
                 }
                 
-                //elegxei an uparxei allos paikths sto newSquare
-                //an nai prin metakinhsei ton paikth pairnei ton allon kai ton paei sto oldSquare
-               
                 square_occupied(pl, name, newSquare, oldSquare);
 
                 pl.moveTo(newSquare);
                 
                 System.out.println("Player '" + name + "' has now moved to square " + newSquare.getSquareNum());
                 
-                newSquare.action(pl, round, dice);
+                newSquare.action(pl, dice, newSquare.getSquareNum());
         
             }
             
@@ -401,7 +393,7 @@ public class Game implements java.io.Serializable {
             pl_name = pl.getName();    
             if(!name.equals(pl_name)){   
                 if(new_sqr == pl.getSquare()){
-                    System.out.println("Square occupied by player '" + pl_name + "'");
+                    System.out.println("Square " + new_sqr.getSquareNum() + " occupied by player '" + pl_name + "'");
                     pl.moveTo(old_sqr);
                     System.out.println("Player '" + pl_name + "' has been moved to square " + old_sqr.getSquareNum()); 
                 }
@@ -412,6 +404,5 @@ public class Game implements java.io.Serializable {
             
         }
     }
-    
     
 }
