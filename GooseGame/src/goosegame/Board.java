@@ -26,7 +26,7 @@ public class Board {
     public Square getSquare(int squareNumber){
         
         //squares.size() = 64 (0-63)
-        //8eloume 1-63 dhladh 62 tetragwna(to 63 einai ths nikhs) opote 64-2 (-64 + 2)
+        //we want numbers 1-63 (63 is the victory square), so 62 squares, therefore 64-2 (-64 + 2)
         if (squareNumber >= squares.size()){
             int diff = squareNumber - squares.size() + 2;         
             squareNumber = squares.size() - diff;
