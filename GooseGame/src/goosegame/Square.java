@@ -58,9 +58,10 @@ public class Square {
             action(player, dice, getSquareNum());
             
             /*
-            otan peftei sto 59 kai einai na epanalabei to zari kai fernei 8, pagideyetai sto 59 
-            kai ksanarixnei kai den termatizei mexri na uparksei stackoverflow error
-            gi auto anti na kanei +dice , kanei -dice
+            if the player lands in square 59 which is a goose square and his dice equals 8, 
+            he repeats the dice and lands again and again in 59 until there is a stackoverflow error
+            which causes the program to terminate
+            that's why squareNumber = 59 - dice instead of (59 + dice)
             */
         }
         else if(squareNum == 6){    //bridge
