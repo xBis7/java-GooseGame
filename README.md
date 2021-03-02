@@ -1,6 +1,8 @@
 # java-GooseGame
 
- Simple implementation of the Goose Game. The game is played with 2-6 players. Each player has the ability to save the game in a file, during his turn and load it later.
+ Simple implementation of the Goose Game. Netbeans 12.0, java with ants , no building tools. 
+ 
+ The game is played with 2-6 players. Each player has the ability to save the game in a file, during his turn and load it later.
  
  At the start there are 3 options: New Game, Load Game, Exit.
  
